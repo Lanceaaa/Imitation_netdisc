@@ -31,7 +31,7 @@ CREATE TABLE `tbl_user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_username` (`user_name`),
   KEY `idx_status` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- 创建用户token表
 CREATE TABLE `tbl_user_token` (
