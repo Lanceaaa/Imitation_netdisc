@@ -42,3 +42,10 @@ func SignUpHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 }
+
+// 登录接口
+func SignInHandler(w http.ResponseWriter, r *http.Request) {
+	// 1. 校验用户名及密码
+	// 2. 生成访问凭证(Token)
+	// 3. 登录成功后重定向到首页
+}
