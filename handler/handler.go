@@ -10,6 +10,7 @@ import (
 	"time"
 	"filestore-server/util"
 	"encoding/json"
+	dblayer "filestore-server/db"
 )
 
 // 处理文件上传
@@ -58,6 +59,11 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Printf(fileMeta.FileSha1)
 		// meta.UpdateFileMeta(fileMeta)
 		meta.UpdateFileMetaDB(fileMeta)
+
+		// Todo: 更新用户文件表记录
+		r.ParseForm()
+		username := r.Form.Get("username")
+		dblayer.OnUserFileUpdateFinished(username, fileMeta.FileSha1, fileMeta.FileName, fileMeta.FileSize)
 
 		http.Redirect(w, r, "/file/upload/suc", http.StatusFound)
 	}
