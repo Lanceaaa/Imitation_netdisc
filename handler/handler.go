@@ -34,10 +34,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 
 		fileMeta := meta.FileMeta{
 			FileName: head.Filename,
-			// #Todo: company
-			// Location: "D:/goproject/src/filestore-server/tmp/" + head.Filename,
-			// #Todo: private
-			Location: "G:/goproject/src/filestore-server/tmp/" + head.Filename,
+			Location: "D:/goproject/src/filestore-server/tmp/" + head.Filename,
 			UploadAt: time.Now().Format("2016-01-02 15:04:05"),
 		}
 
