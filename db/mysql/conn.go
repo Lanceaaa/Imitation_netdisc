@@ -11,10 +11,7 @@ import (
 var db *sql.DB
 
 func init() {
-	// #Todo: company
-	db, _ = sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/golang?charset=utf8")
-	// #Todo: private
-	// db, _ = sql.Open("mysql", "root:root@tcp(127.0.0.1:3306)/golang?charset=utf8")
+	db, _ = sql.Open("mysql", "root:root@tcp(127.0.0.1:3306)/golang?charset=utf8")
 	db.SetMaxOpenConns(1000)
 	err := db.Ping()
 	if(err != nil) {
