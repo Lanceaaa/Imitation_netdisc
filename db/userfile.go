@@ -3,6 +3,7 @@ package db
 import (
 	mydb "filestore-server/db/mysql"
 	"time"
+	"fmt"
 )
 
 // 用户文件表结构体
@@ -29,4 +30,31 @@ func OnUserFileUploadFinished(username, filehash, filename string, filesize int6
 		return false
 	}
 	return true
+}
+
+// 批量获取用户文件信息
+func QueryUserFileMetas(username string, limit int) ([]UserFile, error) {
+	stmt, err := mydb.DBConn().Prepare("select `file_sha1`, `file_name`, `file_size`, `upload_at`, `last_update` form " +
+	"tbl_user_file where username = ? limit 1")
+	if err != nil {
+		return nil, err
+	}
+	defer stmt.Close()
+
+	rows, err := stmt.Query(username, limit)
+	if err != nil {
+		return nil, err
+	}
+
+	var userFile []UserFile
+	for rows.Next() {
+		ufile := UserFile{}
+		err = rows.Scan(&ufile.FileHash, &ufile.FileName, &ufile.FileSize, &ufile.UploadAt, &ufile.LastUpdated)
+		if err != nil {
+			fmt.Println(err.Error())
+			break
+		}
+		userFile = append(userFile, ufile)
+	}
+	return userFile, nil
 }
